@@ -1,0 +1,52 @@
+:root {
+  font-size: calc(1.5rem + 3vw);
+  --vspace: calc((100vh - 1.2em) / 2);
+}
+
+* {
+  max-inline-size: 60ch;
+}
+
+html,
+body,
+div,
+header,
+nav,
+main,
+footer {
+  max-inline-size: none;
+}
+
+*,
+body {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.2em;
+  background-color: #000;
+  color: #fff;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: var(--vspace) 10vw;
+}
+
+.stack > * {
+  margin-block: 0;
+}
+
+.stack > * + * {
+  margin-block-start: calc(var(--vspace) * 2);
+}
+
+h1,
+.text-align\:center {
+  margin-inline: auto;
+}
+
+h1 {
+  font-size: 1.5em;
+}
