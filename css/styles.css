@@ -17,14 +17,87 @@ footer {
   max-inline-size: none;
 }
 
-*,
+@keyframes scroll-forwards {
+  from {
+    transform: translate(-1px, 2px);
+  }
+
+  to {
+    transform: translate(3px, 1px);
+  }
+}
+
+@keyframes scroll-backwards {
+  from {
+    transform: translate(2px, 3px);
+  }
+
+  to {
+    transform: translate(-1px, 2px);
+  }
+}
+
+@keyframes medium-scroll-forwards {
+  from {
+    transform: translate(-10px, 15px);
+  }
+
+  30%, 60% {
+    transform: translate(0px, 0px);
+  }
+
+  to {
+    transform: translate(7px, 20px);
+  }
+}
+
+@keyframes medium-scroll-backwards {
+  from {
+    transform: translate(20px, 16px);
+  }
+
+  30%, 60% {
+    transform: translate(0px, 0px);
+  }
+
+  to {
+    transform: translate(-10px, 12px);
+  }
+}
+
+@keyframes big-scroll-forwards {
+  from {
+    transform: translate(-40px, -40px);
+  }
+
+  50% {
+    transform: translate(0px, 0px);
+  }
+
+  to {
+    transform: translate(40px, 40px);
+  }
+}
+
+@keyframes big-scroll-backwards {
+  from {
+    transform: translate(40px, 40px);
+  }
+
+  50% {
+    transform: translate(0px, 0px);
+  }
+
+  to {
+    transform: translate(-40px, -40px);
+  }
+}
+
 body {
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  line-height: 1.2em;
-  background-color: #000;
-  color: #fff;
+  background: #000;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .stack {
@@ -42,11 +115,121 @@ body {
   margin-block-start: calc(var(--vspace) * 2);
 }
 
-h1,
 .text-align\:center {
   margin-inline: auto;
 }
 
-h1 {
-  font-size: 1.5em;
+h1, p:not(:has(a)), a {
+  position: sticky;
+  mix-blend-mode: difference;
+  color: #0f0;
+
+  &::before, &::after {
+    position: absolute;
+    content: attr(data-text);
+    left:0px;
+    top: 0px;
+    width: 100%;
+    transform: translate(0px, 0px);
+    mix-blend-mode: difference;
+  }
+
+  &::before {
+    color: #f00;
+  }
+
+  &::after {
+    color: #00f;
+  }
 }
+
+h1, a {
+  top: 45vh;
+  /* font-size: 6rem; */
+  font-weight: 300;
+  font-style: normal;
+  text-align: center;
+  margin-inline: auto;
+  line-height: 1.2em;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+
+  &::before {
+    animation: big-scroll-forwards 0.1s ease-in 0s 1 normal;
+    animation-timeline: view();
+  }
+
+  &::after {
+    animation: big-scroll-backwards 0.1s ease-in 0s 1 normal;
+    animation-timeline: view();
+  }
+
+  &:hover {
+    &::before {
+        animation: scroll-backwards 0.3s ease-in-out 0s infinite normal;
+    }
+
+    &::after {
+        animation: scroll-forwards 0.2s ease-in-out 0s infinite normal;
+    }
+  }
+}
+
+p:not(:has(a)), a {
+  &::before {
+    animation: medium-scroll-forwards 0.1s ease-in 0s 1 normal;
+    animation-timeline: view();
+  }
+
+  &::after {
+    animation: medium-scroll-backwards 0.1s ease-in 0s 1 normal;
+    animation-timeline: view();
+  }
+
+}
+
+
+/* .about-text {
+  top: 30vh;
+  padding: 0;
+  margin: 0;
+  font-size: 5rem;
+  font-weight: 300;
+  line-height: 1;
+  max-inline-size: 27ch;
+}
+.square {
+  display: block;
+  width: 35vw;
+  aspect-ratio: 1/1;
+  min-width: 270px;
+  position: relative;
+  left: calc(50vw);
+  margin-top: 80vh;
+  margin-bottom: 35vh;
+  mix-blend-mode: difference;
+}
+
+.purple-blue-gradient {
+  background-color: #6C2AF9;
+  background-image: -webkit-radial-gradient(95% 5%, rgba(48,252,152,1),rgba(251,161,102,0), -webkit-radial-gradient(0% 95%, rgba(80,255,247,1) 0%,  rgba(251,161,102,0) 30%));
+  background-image: radial-gradient(at 95% 5%,rgba(48,252,152,1),rgba(251,161,102,0) 90%), radial-gradient(at 0% 95%, rgba(80,255,247,1) 0%, rgba(251,161,102,0) 30%);
+}
+
+.circle {
+  display: block;
+  max-width: 30vw;
+  min-width: 300px;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  margin-top: 80vh;
+  margin-bottom: 80vh;
+  left: 5%;
+  mix-blend-mode: difference;
+}
+
+.purple-orange-gradient {
+  background-color: #6C2AF9;
+  background-image: -webkit-radial-gradient(95% 5%, rgba(254,161,102,1), rgba(252,161,102,0)), -webkit-radial-gradient(0% 95%, rgba(254,161,102,1), rgba(252,161,102,0) 30%);
+} */

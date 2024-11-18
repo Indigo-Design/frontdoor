@@ -17,11 +17,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=block&text=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-%27%2C%3B%28%29");
+      @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=block&text=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-%27%2C%3B%28%29%2F%CB%88%C9%AA%C9%99");
     </style>
     <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     <link rel="icon" href="/images/favicon.png" type="image/png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <meta name="twitter:card" content="summary" />
     <meta property="og:title" content="Indigo" />
@@ -47,9 +48,9 @@
 
   <body>
     <main id="main" tabindex="-1" class="stack">
-      <h1>Indigo</h1>
+      <h1 data-revealed-text="/science/">/saɪ.əns/</h1>
       <p>
-        Indigo helps organisations focus their digital strategies on real value
+        /science/ helps organisations focus their digital strategies on real value
         and build products and services that create genuine, long-lasting
         relationships with customers.
       </p>
@@ -69,22 +70,36 @@
       </p>
     </main>
     <!--
-        Mental health issues and suicide rates have been increasing across society.
-        Politics is more divided than ever, with Culture Wars now seen as a legitimate election strategy.
-        Trust in the media is at rock bottom, with "fake news" increasingly indistinguishable from clickbaity headlines from traditional outlets.
-        Science is derided and conspiracy theories abound.
-        Inequality is rising and young people face a worse life than their parents for the first time in history.
-        Some describe us as living in a "trauma culture", where we're surrounded by discord, anger and contention all the time. Loneliness among all age groups is on the rise and even young people are going out less, meeting fewer people, pairing up with partners less and having children less than ever before.
-        Others talk about Enshittification to explain how we've created a system of incentives that leads to our digital lives being progressively worsened as our attention becomes commoditised and mined for advertising; the measurement of which is itself subject to massive ongoing fraud.
-        All these problems are intertwined; they all have their roots in digital.
-        In the way we think about the attention economy; the way we chase eyeballs with algorithmic personalisation of our messages, and the way we structure our campaigns, our companies and our laws; our incentives.
-        We remember thinking of digital with hope.
-        The Arab Spring was a time of optimism; people making genuine connections across physical boundaries to create shared dreams and change their worlds.
-        Isolated individuals finding their communities online and escaping bullying and parochial attitudes to build their confidence and live their lives to the fullest.
+        Mental health issues and suicide rates are rising.
+        Politics is more divided than ever.
+        Culture Wars have become a cynical election strategy.
+        Trust in media is at rock bottom.
+        "Fake news" blends seamlessly with clickbait from traditional outlets.
+        Science is ridiculed.
+        Conspiracy theories thrive.
+        Inequality is surging.
+        For the first time in history, young people face a bleaker future than their parents.
+        We live in a world of constant discord, anger, and contention.
+        Loneliness is climbing across all age groups. Young people are going out less, meeting fewer people, forming fewer partnerships, and having fewer children than ever before.
+
+        All these problems are intertwined; they all have their roots in digital and all that comes with it.
+        At the heart of the issues is the attention economy; the way we chase eyeballs with algorithmic personalisation of our messages, rewarding strong emotion over facts and communities.
+        Closely related is Enshittification: the way we structure our companies and our laws - our incentives - to create a system where our online lives are stripped of value as platforms commodify our attention for ad revenue — fraudulent metrics and all.
+
+        But it wasn’t always this way.
+
+        We remember when digital gave us hope.
+        The Arab Spring: when technology connected people across borders to dream and create change.
+        When the isolated found online communities, escaping judgment to live authentically.
+
+        We believe digital can still be a force for good.
+        It’s still young. It’s still evolving.
+        People still crave connection, authenticity, and trust.
+
         We are optimistic.
-        We think digital can be a positive force for the world. It's still in its infancy; we're still learning.
-        People still want to connect and form relationships and communities. People yearn for authenticity and the ability to trust.
-        We think companies can be authentic and remain valued and valuable. That they can play a part in building authentic digital spaces. Most of all, that they can be powerful catalysts for change in the real world, bringing us all closer.
+        Digital spaces can be honest, valuable, and transformative.
+        Companies can help build them — and be powerful catalysts for real-world change.
+
         We believe in authentic relationships built on trust.
         We are transparent with our clients and clear about objectives, progress and outcomes. We work with clients with open work cultures.
         We are honest with our partners and only insert ourselves into situations where we can bring value. We work with skilled individuals and companies, always spending the least necessary for an excellent outcome.
@@ -93,5 +108,30 @@
         We are driven by optimism. Digital is nothing if not changeable. We know digital. We can change things.
         Let's change things.
     -->
+
+    <script src="/js/main.js" type="module"></script>
+    <script lang="javascript">
+        let addDataAttrFromNodeContent = (nodes) => {
+          nodes.map((el) => el.setAttribute("data-text", el.childNodes[0].nodeValue));
+          nodes.map((el) => el.setAttribute("data-original-text", el.childNodes[0].nodeValue));
+        };
+        document.onreadystatechange = () => {
+          if (document.readyState === "interactive") {
+            h1Tags = document.getElementsByTagName("h1");
+            addDataAttrFromNodeContent([...h1Tags]);
+            addDataAttrFromNodeContent([...document.getElementsByTagName("p")]);
+            addDataAttrFromNodeContent([...document.getElementsByTagName("a")]);
+
+            h1Tags[0].addEventListener("mouseover", (event) => {
+                event.target.textContent = event.target.getAttribute("data-revealed-text");
+                event.target.setAttribute("data-text", event.target.getAttribute("data-revealed-text"));
+            });
+            h1Tags[0].addEventListener("mouseout", (event) => {
+                event.target.textContent = event.target.getAttribute("data-original-text");
+                event.target.setAttribute("data-text", event.target.getAttribute("data-original-text"));
+            });
+          }
+      };
+    </script>
   </body>
 </html>
